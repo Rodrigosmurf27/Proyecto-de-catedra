@@ -5,9 +5,13 @@ import { API_URL } from "../api/api";
 
 const ProductosScreen = () => {
   const [productos, setProductos] = useState([]);
-  useEffect(() => {
-    axios.get(`${API_URL}/productos`).then(res => setProductos(res.data));
-  }, []);
+
+useEffect(() => {
+  fetch('venmol-fuhrbtahe8fsdtd2.eastus-01.azurewebsites.net/productos/get.php')
+    .then(res => res.json())
+    .then(data => setProductos(data))
+    .catch(error => console.error(error));
+}, []);
   return (
     <FlatList
       data={productos}

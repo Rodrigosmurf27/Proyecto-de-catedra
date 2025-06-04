@@ -5,7 +5,8 @@ const ProveedorCard = ({ proveedor }) => (
   <View style={styles.card}>
     <Text style={styles.nombre}>{proveedor.nombre}</Text>
     <Text>Teléfono: {proveedor.telefono}</Text>
-    <Text>Dirección: {proveedor.direccion}</Text>
+    <Text>Correo: {proveedor.correo}</Text>
+    <Text>Marca: {proveedor.marca}</Text>
   </View>
 );
 
