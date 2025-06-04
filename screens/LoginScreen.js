@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, View, Button } from "react-native";
 import LoginForm from "../components/LoginForm";
 import { login } from "../api/api";
 
@@ -12,5 +12,13 @@ export default function LoginScreen({ navigation }) {
       Alert.alert("Error", "Usuario o contraseña incorrectos");
     }
   };
-  return <LoginForm onSubmit={handleLogin} />;
+  return (
+    <View style={{ flex: 1 }}>
+      <LoginForm onSubmit={handleLogin} />
+      <Button
+        title="Registrarse"
+        onPress={() => navigation.navigate("Register")}
+      />
+    </View>
+  );
 }

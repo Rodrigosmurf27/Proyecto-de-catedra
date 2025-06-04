@@ -1,16 +1,27 @@
 import axios from "axios";
 
-export const API_URL = "https://6837d1402c55e01d184aeb28.mockapi.io";
+// URL base del backend en Azure que manejará usuarios y datos
+export const API_URL = "https://tu-backend-azure.azurewebsites.net/api";
 
-
-// LOGIN FAKE PARA DEMO
+// Autenticación consultando el backend en Azure
 export async function login(username, password) {
-  // Aquí deberías consultar una API real de usuarios
-  if (username === "admin" && password === "admin") {
-    return { success: true, rol: "admin" };
-  } else if (username === "trabajador" && password === "trabajador") {
-    return { success: true, rol: "trabajador" };
-  } else {
+  try {
+    const res = await axios.post(`${API_URL}/login`, { username, password });
+    return res.data;
+  } catch (e) {
+    return { success: false };
+  }
+}
+
+// Registro de usuarios en Azure
+export async function register(username, password) {
+  try {
+    const res = await axios.post(`${API_URL}/users`, {
+      username,
+      password
+    });
+    return res.data;
+  } catch (e) {
     return { success: false };
   }
 }
