@@ -1,28 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { View, FlatList, ActivityIndicator } from "react-native";
-import SucursalCard from "../components/SucursalCard";
-import axios from "axios";
-import { API_URL } from "../api/api";
+import React from "react";
+import { View, Text } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+
+const sucursales = [
+  {
+    nombre: "Sucursal Soyapango",
+    direccion: "PV84+69P, Autop. Este Oeste, Soyapango",
+    latitud: 13.715250,
+    longitud: -89.142540,
+  },
+  {
+    nombre: "Sucursal Bethoven",
+    direccion: "Calle Nueva 1 casa 3832",
+    latitud: 13.700196226117594,  
+    longitud: -89.2316663405651,
+  }
+];
 
 export default function SucursalesScreen() {
-  const [sucursales, setSucursales] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Centra el mapa entre las sucursales
+  const region = {
+    latitude: (sucursales[0].latitud + sucursales[1].latitud) / 2,
+    longitude: (sucursales[0].longitud + sucursales[1].longitud) / 2,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  };
 
-  useEffect(() => {
-    axios.get(`${API_URL}/sucursales`).then(res => {
-      setSucursales(res.data);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) return <ActivityIndicator size="large" color="#6200ee" style={{ flex: 1 }} />;
   return (
     <View style={{ flex: 1 }}>
-      <FlatList
-        data={sucursales}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <SucursalCard sucursal={item} />}
-      />
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={region}
+        showsUserLocation={false}
+      >
+        {sucursales.map((suc, i) => (
+          <Marker
+            key={i}
+            coordinate={{ latitude: suc.latitud, longitude: suc.longitud }}
+            title={suc.nombre}
+          />
+        ))}
+      </MapView>
     </View>
   );
 }

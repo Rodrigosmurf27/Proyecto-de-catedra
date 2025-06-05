@@ -1,7 +1,8 @@
 import React from "react";
-import { Alert, View } from "react-native";
+import { Alert, View, StyleSheet } from "react-native";
 import RegisterForm from "../components/RegisterForm";
 import { register } from "../api/api";
+import { colors } from "../theme";
 
 export default function RegisterScreen({ navigation }) {
   const handleRegister = async (values) => {
@@ -19,9 +20,17 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
+    <View style={styles.container}>
       <RegisterForm onSubmit={handleRegister} />
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingHorizontal: 20,
+    justifyContent: "center"
+  }
+});
