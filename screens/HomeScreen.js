@@ -1,151 +1,241 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
-import { colors, font } from "../theme";
-import { Ionicons } from "@expo/vector-icons";
-// Si tu logout requiere limpiar storage, llama tu función aquí
-// import { logout } from "../api/api";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
-export default function HomeScreen({ navigation }) {
-  const handleLogout = () => {
-    // Si usas AsyncStorage para guardar el token, bórralo aquí
-    // await AsyncStorage.removeItem('token');
-    Alert.alert(
-      "Cerrar sesión",
-      "¿Estás seguro que deseas cerrar sesión?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Cerrar sesión",
-          style: "destructive",
-          onPress: () => navigation.replace("Login")
-        }
-      ]
-    );
-  };
-
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      {/* Botón logout */}
-      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
-        <Ionicons name="log-out-outline" size={28} color={colors.primary} />
-      </TouchableOpacity>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+        {/* Header Section */}
+        <View style={styles.header}>
+          <View style={styles.logoContainer}>
+            <Image 
+              source={{ uri: "https://i.imgur.com/9lpoUGW.jpeg" }}
+              style={styles.logoImage}
+              resizeMode="cover"
+            />
+          </View>
+          <Text style={styles.title}>Bienvenido a</Text>
+          <Text style={styles.brandName}>Venmol Inventario</Text>
+        </View>
 
-      <View style={styles.logoContainer}>
-        <View style={styles.logoCircle}>
-          <Image source={require("../assets/logo.jpg")} style={styles.logoImg} />
+        {/* Beauty Products Banner */}
+        <View style={styles.bannerContainer}>
+          <Image 
+            source={{ uri: "https://i.imgur.com/gSusASg.jpeg" }}
+            style={styles.bannerImage}
+            resizeMode="cover"
+          />
+          <View style={styles.bannerOverlay}>
+            <Text style={styles.bannerText}>Productos de Belleza</Text>
+            <Text style={styles.bannerSubtext}>Calidad y estilo</Text>
+          </View>
+        </View>
+
+        {/* Welcome Card */}
+        <View style={styles.welcomeCard}>
+          <Text style={styles.welcomeTitle}>¡Hola! 👋</Text>
+          <Text style={styles.welcomeText}>
+            Gestiona tu inventario de forma eficiente y organizada
+          </Text>
+        </View>
+
+        {/* Features Section */}
+        <View style={styles.featuresContainer}>
+          <Text style={styles.featuresTitle}>¿Qué puedes hacer?</Text>
+          
+          <View style={styles.featuresList}>
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>📦</Text>
+              <Text style={styles.featureText}>Gestionar productos e inventario</Text>
+            </View>
+            
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🏪</Text>
+              <Text style={styles.featureText}>Administrar proveedores</Text>
+            </View>
+            
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>👥</Text>
+              <Text style={styles.featureText}>Controlar clientes</Text>
+            </View>
+            
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>💳</Text>
+              <Text style={styles.featureText}>Registrar ventas</Text>
+            </View>
+            
+            <View style={styles.featureItem}>
+              <Text style={styles.featureIcon}>🏢</Text>
+              <Text style={styles.featureText}>Manejar sucursales</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Navigation Hint */}
+        <View style={styles.navigationHint}>
+          <Text style={styles.hintText}>
+            Usa la navegación inferior para acceder a todas las funciones
+          </Text>
         </View>
       </View>
-      <Text style={styles.title}>¡Bienvenido a Venmol Inventario!</Text>
-      <Text style={styles.subtitle}>
-        Usa la barra inferior para gestionar tus{" "}
-        <Text style={styles.bold}>productos</Text>,{" "}
-        <Text style={styles.bold}>inventario</Text>,{" "}
-        <Text style={styles.bold}>proveedores</Text>,{" "}
-        <Text style={styles.bold}>clientes</Text> y más.
-      </Text>
-
-      <View style={styles.iconRow}>
-        <View style={styles.iconCol}>
-          <Ionicons name="albums" size={32} color={colors.primary} />
-          <Text style={styles.iconLabel}>Inventario</Text>
-        </View>
-        <View style={styles.iconCol}>
-          <Ionicons name="pricetags" size={32} color={colors.primary} />
-          <Text style={styles.iconLabel}>Productos</Text>
-        </View>
-        <View style={styles.iconCol}>
-          <Ionicons name="people" size={32} color={colors.primary} />
-          <Text style={styles.iconLabel}>Clientes</Text>
-        </View>
-        <View style={styles.iconCol}>
-          <Ionicons name="business" size={32} color={colors.primary} />
-          <Text style={styles.iconLabel}>Sucursales</Text>
-        </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 28
+    backgroundColor: "#fdf2f8", // Rosa muy claro de fondo
   },
-  logoutBtn: {
-    position: "absolute",
-    top: 28,
-    right: 22,
-    zIndex: 10,
-    backgroundColor: "#fff",
-    borderRadius: 22,
-    padding: 6,
-    elevation: 3,
-    shadowColor: "#c21098",
-    shadowOpacity: 0.12,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 10
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 20,
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: 30,
   },
   logoContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "white",
     alignItems: "center",
-    marginBottom: 16
-  },
-  logoCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: colors.primary,
     justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#c21098",
-    shadowOpacity: 0.12,
+    marginBottom: 15,
+    shadowColor: "#ec4899",
     shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 12,
-    elevation: 5
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+    padding: 2,
   },
-  logoImg: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    resizeMode: "contain",
-    backgroundColor: "#fff"
+  logoImage: {
+    width: 76,
+    height: 76,
+    borderRadius: 38,
   },
   title: {
-    fontSize: 26,
-    color: colors.primary,
-    fontFamily: font.bold,
+    fontSize: 18,
+    color: "#9f1239", // Rosa oscuro
+    marginBottom: 5,
+  },
+  brandName: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#be185d", // Rosa medio-oscuro
     textAlign: "center",
-    marginBottom: 12,
-    marginTop: 8
   },
-  subtitle: {
-    fontSize: 17,
-    color: colors.textSecondary,
-    textAlign: "center",
-    marginBottom: 28,
-    fontFamily: font.regular,
-    lineHeight: 22
+  bannerContainer: {
+    position: "relative",
+    marginBottom: 25,
+    borderRadius: 16,
+    overflow: "hidden",
+    shadowColor: "#ec4899",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
   },
-  bold: {
-    color: colors.primary,
-    fontFamily: font.bold
-  },
-  iconRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  bannerImage: {
     width: "100%",
-    marginTop: 12
+    height: 160,
   },
-  iconCol: {
+  bannerOverlay: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(190, 24, 93, 0.8)", // Rosa semi-transparente
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  bannerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
+  bannerSubtext: {
+    fontSize: 14,
+    color: "white",
+    textAlign: "center",
+    opacity: 0.9,
+    marginTop: 2,
+  },
+  welcomeCard: {
+    backgroundColor: "white",
+    borderRadius: 16,
+    padding: 24,
+    marginBottom: 25,
+    shadowColor: "#ec4899",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: "#f472b6", // Rosa claro
+  },
+  welcomeTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#be185d",
+    marginBottom: 8,
+  },
+  welcomeText: {
+    fontSize: 16,
+    color: "#6b7280",
+    lineHeight: 22,
+  },
+  featuresContainer: {
+    marginBottom: 25,
+  },
+  featuresTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#be185d",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  featuresList: {
+    gap: 12,
+  },
+  featureItem: {
+    flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 7
+    backgroundColor: "white",
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: "#ec4899",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+    borderLeftWidth: 3,
+    borderLeftColor: "#f9a8d4", // Rosa muy claro
   },
-  iconLabel: {
-    fontSize: 13,
-    color: colors.textSecondary,
-    fontFamily: font.regular,
-    marginTop: 5
-  }
+  featureIcon: {
+    fontSize: 24,
+    marginRight: 15,
+  },
+  featureText: {
+    fontSize: 16,
+    color: "#374151",
+    flex: 1,
+  },
+  navigationHint: {
+    backgroundColor: "#fce7f3", // Rosa muy claro
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "#f9a8d4",
+  },
+  hintText: {
+    fontSize: 14,
+    color: "#9f1239",
+    textAlign: "center",
+    fontStyle: "italic",
+  },
 });
